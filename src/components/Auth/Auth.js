@@ -1,8 +1,10 @@
 import React, { useContext, useRef, useState } from 'react'
 import './Auth.css';
 import { Link } from 'react-router-dom';
+import Context from '../store/Context';
 
 const Auth = () => {
+    const ctx = useContext(Context);
     const [onToggle, setOnToggle] = useState(true);
     const [forgot, setForgot] = useState(false)
     const emailref = useRef('')
@@ -88,7 +90,7 @@ const Auth = () => {
             }
         }).then(data => {
             console.log(data)
-            // ctx.login(data.idToken, changedEmail)
+            ctx.login(data.idToken, changedEmail)
         })
         .catch(err => alert(err.message))
         // ctx.filterMail(changedEmail);
