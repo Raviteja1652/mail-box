@@ -90,7 +90,7 @@ const Auth = () => {
             }
         }).then(data => {
             console.log(data)
-            ctx.login(data.idToken, changedEmail)
+            ctx.login(data.idToken, changedEmail, enteredEmail)
         })
         .catch(err => alert(err.message))
         // ctx.filterMail(changedEmail);

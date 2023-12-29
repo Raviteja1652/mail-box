@@ -23,6 +23,7 @@ const Compose = () => {
         console.log(contentText);
         const recipientMail = recepMailRef.current.value
         const mailData = {
+            senderMail: ctx.userMail,
             recipientMail: recipientMail,
             subject: subjectRef.current.value,
             message: contentText
