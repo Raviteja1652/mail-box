@@ -9,7 +9,7 @@ import Context from '../store/Context';
 
 const Compose = () => {
     const ctx = useContext(Context);
-    const mailRef = useRef('');
+    const recepMailRef = useRef('');
     const subjectRef = useRef('');
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
@@ -21,8 +21,14 @@ const Compose = () => {
         const contentState = editorState.getCurrentContent();
         const contentText = contentState.getPlainText();
         console.log(contentText);
+        const recipientMail = recepMailRef.current.value
+        const mailData = {
+            recipientMail: recipientMail,
+            subject: subjectRef.current.value,
+            message: contentText
+        };
 
-        // ctx.sendMail()
+        ctx.sendMail(mailData);
     };
 
   return (
@@ -30,7 +36,7 @@ const Compose = () => {
         <Card>
             <form>
                 <div>
-                    <input placeholder="Enter recipient's emailId" ref={mailRef}></input>
+                    <input placeholder="Enter recipient's emailId" ref={recepMailRef}></input>
                     <input placeholder='Enter Subject' ref={subjectRef} />
                 </div>
                 <div className='editor'>
