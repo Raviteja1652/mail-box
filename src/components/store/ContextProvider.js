@@ -107,18 +107,45 @@ const ContextProvider = props => {
         } catch(err){
             console.log(err)
         };
-    }
+    };
+    const inboxClickHandler = async () => {
+        try{
+            const getResponse = await axios.get(`https://react-http-7e214-default-rtdb.firebaseio.com/_${mail}_inboxMails.json`)
+            const data = await getResponse.data
+            let filteredData = [];
+            for (let key in data) {
+                filteredData.push({...data[key], id:key});
+            }
+            setInboxMails(filteredData)
+            console.log(data)
+        } catch(err) {console.log(err)}
+    };
+    const sentClickHandler = async () => {
+        try{
+            const getResponse = await axios.get(`https://react-http-7e214-default-rtdb.firebaseio.com/_${mail}_mails.json`)
+            const data = await getResponse.data
+            let filteredData = [];
+            for (let key in data) {
+                filteredData.push({...data[key], id:key});
+            }
+            setSentMails(filteredData)
+            console.log(data)
+        } catch(err) {console.log(err)}
+    };
 
     const contextValue ={
         token: token,
         userMail: userMail,
         isLoggedIn: isLoggedIn,
         sentMails: sentMails,
+        inboxMails: inboxMails,
         login: loginHandler,
         logout: logoutHandler,
         onLoad: onPageLoad,
         sendMail: sendMailHandler,
-        inboxMails: inboxMails,
+        inboxClick: inboxClickHandler,
+        sentClick: sentClickHandler,
+        
     }
 
     return <Context.Provider value={contextValue}>{props.children}</Context.Provider>
