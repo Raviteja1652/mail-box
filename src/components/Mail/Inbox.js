@@ -2,10 +2,12 @@ import React, { useContext, useState } from 'react'
 import Context from '../store/Context'
 import './Inbox.css';
 
-const FullMessage = ({mailData, onBackClick}) => {
+const FullMessage = ({mailData, onBackClick, onDelete}) => {
+    
     return (
         <div>
           <button onClick={onBackClick}>&larr; Back</button>
+          <button onClick={() => onDelete(mailData.id)}>delete</button>
           <h2>{mailData.subject}</h2>
           <p>{mailData.message}</p>
         </div>
@@ -26,18 +28,28 @@ const Inbox = () => {
         setSelectedInbox(null);
         setViewMode('list')
     };
+    const deleteMailHandler = (id) => {
+        alert('Are you sure to delete this Mail');
+        ctx.deleteMail(id);
+        setSelectedInbox(null);
+        setViewMode('list')
+    };
+
     const inboxList = ctx.inboxMails.map(mail => (
         <li key={mail.id} className='inbox-mail' onClick={() => inboxClickHandler(mail.id)}>
             <h5>From: {mail.senderMail}</h5>
             <span>{mail.subject} - {mail.message}</span>
         </li>
     ));
+    
     const inboxCount = ctx.inboxMails.length;
   return (
     <div>
         <h6>{inboxCount} mails</h6>
         {viewMode === 'list' && <ul>{inboxList}</ul>}
-        {viewMode === 'full' && selectedInbox && <FullMessage mailData={selectedInbox} onBackClick={handleBackClick} />}
+        {viewMode === 'full' && selectedInbox && (
+            <FullMessage mailData={selectedInbox} onBackClick={handleBackClick} onDelete={deleteMailHandler} />
+        )}
     </div>
     
   )

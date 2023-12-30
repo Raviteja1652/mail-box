@@ -132,6 +132,19 @@ const ContextProvider = props => {
             console.log(data)
         } catch(err) {console.log(err)}
     };
+    const deleteMailHandler = async(id) => {
+        try{
+            const delData = await axios.delete(`https://react-http-7e214-default-rtdb.firebaseio.com/_${mail}_inboxMails/${id}.json`)
+            const data = await delData.data
+            console.log(data)
+            // console.log('Succesfully Deleted')
+            alert('Mail successfully deleted');
+        } catch(err) {console.log(err)}
+        setInboxMails((prev) => {
+            const updatedMails = prev.filter(mail => mail.id !== id)
+            return updatedMails;
+        })
+    };
 
     const contextValue ={
         token: token,
@@ -145,6 +158,7 @@ const ContextProvider = props => {
         sendMail: sendMailHandler,
         inboxClick: inboxClickHandler,
         sentClick: sentClickHandler,
+        deleteMail: deleteMailHandler,
         
     }
 
