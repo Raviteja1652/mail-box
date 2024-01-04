@@ -1,60 +1,34 @@
 import React, { useContext } from 'react';
-import { Link, Route, Switch, Redirect } from 'react-router-dom';
+import { Link, Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import './Navigation.css'
 import Context from '../store/Context';
-import Card from '../card/Card';
-import Compose from '../Mail/Compose';
-import Auth from '../Auth/Auth';
-import Sent from '../Mail/Sent';
 
 const Navigation = () => {
     const ctx = useContext(Context)
+    const location = useLocation();
+    const unreadCount = ctx.inboxMails.filter(mail => !mail.isRead).length;
   return (
-    <div>
+    <div className='navigation-container'>
         <h2>Mail Box</h2>
-        <div>
+        <div className='navigation-links'>
             <ul>
-                <li>
+                <li className={location.pathname === '/inbox' ? 'active' : ''} >
                     <Link to='/inbox' onClick={() => ctx.inboxClick()}>Inbox</Link>
+                    <span className='unread-count'>{unreadCount}</span>
                 </li>
-                <li>
+                <li className={location.pathname === '/compose' ? 'active' : ''}>
                     <Link to='/compose'>Compose</Link>
                 </li>
-                <li>
+                <li className={location.pathname === '/sent' ? 'active' : ''}>
                     <Link to='/sent' onClick={() => ctx.sentClick()}>Sent</Link>
                 </li>
                 <li>
                     <Link to='/logout' onClick={() => ctx.logout()}>Logout</Link>
                 </li>
             </ul>
+            <span className='profile-icon'>{ctx.userMail}</span>
         </div>
-        {/* <Card> */}
-            {/* <Switch> */}
-                {/* <Route path='/login'><Auth /></Route> */}
-                {/* <Route path='/logout'>(<Redirect to='/login'><Auth /></Redirect>)</Route>
-                <Route path='/compose'><Compose /></Route>
-                <Route path='/sent'><Sent /></Route> */}
-            {/* </Switch> */}
-        {/* </Card> */}
     </div>
-    // <header className='header'>
-    //     <Link to='/'>
-    //         <div className='logo'>Mail Box</div>
-    //     </Link>
-    //     <nav>
-    //         <ul>
-    //             <li>
-    //                 <Link to='/profile'>Profile</Link>
-    //             </li>
-    //             {/* <li>
-    //                 <Link to='/login'>Login</Link>
-    //             </li> */}
-    //             <li>
-    //                 <Link to='/logout' onClick={() => ctx.logout()}>Logout</Link>
-    //             </li>
-    //         </ul>
-    //     </nav>
-    // </header>
   )
 }
 

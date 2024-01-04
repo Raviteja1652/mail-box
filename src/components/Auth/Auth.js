@@ -9,7 +9,7 @@ const Auth = () => {
     const [forgot, setForgot] = useState(false)
     const emailref = useRef('')
     const passref = useRef('')
-    const for_pass_emailRef = useRef('')
+    const for_pass_emailRef = useRef('');
     // const cnfPassref = useRef('')
 
     const swithModeHandler = () => {

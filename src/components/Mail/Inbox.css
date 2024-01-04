@@ -1,10 +1,93 @@
 .inbox-mail {
     border-bottom: 1px solid rgb(177, 172, 172);
-    
-    
+    margin-top: 8px;
+    margin-bottom: 0;
+    padding: 5px;
+    transition: background-color 0.3s ease;     
 }
 
 .inbox-mail:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     cursor: pointer;
+}
+
+.inbox-mails {
+    background: white;
+    margin-top: 45px;
+    height: 85vh;
+    width: 157vh;
+    padding: 10px;
+    border-radius: 7px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+.mail-count {
+    text-align: right;
+    margin: 20px;
+    position: relative;
+    /* top: 11%;
+    right: 4%; */
+    color: rgb(57, 57, 241);
+}
+
+.full-msg button {
+    margin-bottom: 15px;
+    
+    padding: 3px;
+    margin-left: 3%;
+    border-radius: 5px;
+    font-size: large;
+}
+
+.delete-button {
+    text-align: right;
+}
+
+.full-msg-detail {
+    background: rgb(214, 212, 212);
+    width: 45vh;
+    border-radius: 8px;
+    border: 0.5px solid;
+    padding: 10px;
+    margin-top: 2vh;
+    margin-bottom: 5vh;
+}
+
+.inbox-message {
+    font-size: larger;
+}
+
+.inner-sentmail {
+    margin-left: 4vh;
+    font-family: sans-serif;
+    font-size: large;
+    position: relative;
+    left: 13vh;
+}
+
+.unread {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #1b7dda;
+    margin-right: 10px;
+    text-align: end;
+    position: relative;
+    left: 40%;
+    bottom: 0;
+}
+
+.sender-mail {
+    font-size: large;
+
+}
+
+.inbox-filter {
+    margin-top: 15px;
+    margin-left: 20px;
+    margin-bottom: 0;
+    margin-right: 0;
+    width: 10%;
+    max-height: 8vh;
+    border-radius: 5px;
 }

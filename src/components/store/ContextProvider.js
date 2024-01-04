@@ -145,6 +145,40 @@ const ContextProvider = props => {
             return updatedMails;
         })
     };
+    const readMailHandler = async (id) => {
+        setInboxMails(prev => {
+            const updated = prev.map(mail => mail.id === id ? { ...mail, isRead: true } : mail);
+            return updated
+        })
+        try {
+            const firebaseUrl = `https://react-http-7e214-default-rtdb.firebaseio.com/_${mail}_inboxMails/${id}.json`;
+            const response = await axios.get(firebaseUrl);
+            const mailData = response.data;
+            mailData.isRead = true;
+            await axios.put(firebaseUrl, mailData);
+        } catch (error) {
+            console.error('Error updating mail:', error);
+        }
+    };
+    const changeMailHandler = async (selected) => {
+        try{
+            const response = await axios.get(`https://react-http-7e214-default-rtdb.firebaseio.com/_${mail}_inboxMails.json`)
+            const data = await response.data;
+
+            let filteredMails = [];
+            for (let key in data) {
+                if (selected === 'all') {
+                    filteredMails.push({ ...data[key], id: key });
+                } else if (selected === 'read' && data[key]?.isRead) {
+                    filteredMails.push({ ...data[key], id: key });
+                } else if (selected === 'unread' && !data[key]?.isRead) {
+                    filteredMails.push({ ...data[key], id: key });
+                }
+            }
+            setInboxMails(filteredMails);
+            // console.log('filtered', filteredMails)
+        } catch(err) {console.log(err)}
+    }
 
     const contextValue ={
         token: token,
@@ -159,7 +193,8 @@ const ContextProvider = props => {
         inboxClick: inboxClickHandler,
         sentClick: sentClickHandler,
         deleteMail: deleteMailHandler,
-        
+        readMail: readMailHandler,        
+        changeMail: changeMailHandler,
     }
 
     return <Context.Provider value={contextValue}>{props.children}</Context.Provider>

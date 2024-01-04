@@ -6,6 +6,8 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Sent from "./components/Mail/Sent";
 import Compose from "./components/Mail/Compose";
 import Inbox from "./components/Mail/Inbox";
+import Wrapper from "./components/card/Wrapper";
+import './App.css';
 
 function App() {
   const ctx = useContext(Context);
@@ -15,22 +17,19 @@ function App() {
   return (
     <div>
       {ctx.isLoggedIn && <Navigation />}
-      <main>
         <Switch>
-
           <Route path='/' exact component={Auth} />
           <Route path='/login'>{!ctx.isLoggedIn ? (<Auth />) : (<Redirect to='/compose' />)}</Route>
-          <Route path='/logout'>(<Redirect to='/login' />)</Route>
-          <Route path='/compose'><Compose /></Route>
-          <Route path='/inbox'><Inbox /></Route>
-          <Route path='/sent'><Sent /></Route>
-          {/* <Route path='*'>
-            <Redirect to='/login' />
-          </Route> */}
-          
+          <Wrapper>
+            <Route path='/logout'>(<Redirect to='/login' />)</Route>
+            <Route path='/compose'><Compose /></Route>
+            <Route path='/inbox'><Inbox /></Route>
+            <Route path='/sent'><Sent /></Route>
+            {/* <Route path='*'>
+              <Redirect to='/login' />
+            </Route> */}
+          </Wrapper>
         </Switch>
-      </main>
-      
     </div>
   );
 }
